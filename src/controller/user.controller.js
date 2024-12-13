@@ -333,7 +333,6 @@ const getChannelProfile = asyncHandler(async(req , res)=>{
     if(!username?.trim()){
         throw new ApiError(400 , "Username is missing.")
     }
-    console.log(req.user?._id);
     
     const channel = await User.aggregate([
         {
@@ -386,10 +385,11 @@ const getChannelProfile = asyncHandler(async(req , res)=>{
                 isSubscribed:1,
                 avatar:1,
                 coverImage:1,
-
             }
         }
-    ])        
+    ])
+    console.log(channel);
+            
     if(!channel.length){
         throw new ApiError(404 , "the channel is not feached")
     }
