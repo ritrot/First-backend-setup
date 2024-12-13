@@ -22,8 +22,25 @@ const togglesubscription = asyncHandler(async (req , res)=>{
         Channel :_id
     })
     const isSubscribed = !!subscribed;
-    console.log(isSubscribed);
+    console.log("Status = ",isSubscribed);
     
+    let toggle ; 
+    
+    if(isSubscribed){
+        // if the user is already subscribed then we have to unsubcribe him
+        toggle = await Subscription.findOneAndDelete({
+            Subscriber:req.user._id,
+            Channel:_id
+        })
+    }
+
+    else{
+        // if the user is not subscribed then we have to subscribe him
+        toggle = await Subscription.create({
+            Subscriber:req.user?._id,
+            Channel:_id
+        })
+    }
 
     //     const channels = await User.aggregate([
     //     {
@@ -57,7 +74,7 @@ const togglesubscription = asyncHandler(async (req , res)=>{
     return res
     .status(200)
     .json(
-        new ApiResponse(200 , isSubscribed , "did it")
+        new ApiResponse(200 , toggle , "did it")
     )
 })
 
