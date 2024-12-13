@@ -9,6 +9,7 @@ import { Subscription } from "../models/subscription.model.js";
 
 const togglesubscription = asyncHandler(async (req , res)=>{
     // user will send the channelID
+    //here we havwe to toggle the subscription 
     const {_id} = req.params
     const channel = await User.findById(_id);
     if(!channel) {
