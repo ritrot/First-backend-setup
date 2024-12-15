@@ -9,13 +9,12 @@ import { Subscription } from "../models/subscription.model.js";
 
 const togglesubscription = asyncHandler(async (req , res)=>{
     // user will send the channelID
-    //here we havwe to toggle the subscription 
+    //here we have to toggle the subscription 
     const {_id} = req.params
     const channel = await User.findById(_id);
     if(!channel) {
         throw new ApiError("User not found", 404);
     }
-    // check if the user is already subscribed to the channel
 
     const subscribed = await Subscription.findOne({
         Subscriber:req.user._id,

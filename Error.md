@@ -17,3 +17,7 @@
 7] The user do not have the files or the file => we had to add{ upload.single("coverImage") } at the route to accept the file 
 
 8] In getChannelProfile i was passing :username but it was /username how? it should be : right? 
+
+9] How to find the duration of video => Use library fluent-ffmpeg => Have to include the path in the system.
+
+10] How to delete files from the cloudinary

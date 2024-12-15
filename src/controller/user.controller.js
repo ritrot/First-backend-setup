@@ -12,14 +12,15 @@ const getAccessAndRefreshToken = async (user) => {
     let refreshToken;
     try {
         accessToken =await user.generateAccessToken()
-        refreshToken = user.generatRefreshToken()
+        refreshToken =await user.generatRefreshToken()
 
         user.refreshToken = refreshToken;
         await user.save({ ValidateBeforeSave: false });
     } catch (err) {
         throw new ApiError(500, err);
     }
-    return accessToken, refreshToken;
+    
+    return {accessToken, refreshToken};
 }
 
 
@@ -144,7 +145,8 @@ const userlogin = asyncHandler(async (req, res) => {
         httpOnly: true,
         secure: true
     }
-
+    
+    
     return res.
         status(200)
         .cookie("accessToken", accessToken, option)
@@ -165,8 +167,8 @@ const userlogout = asyncHandler(async (req, res) => {
         
         req._id,
         {
-            $set: {
-                refreshToken: undefined
+            $unset: {
+                refreshToken: 1
             }
         },
         {
@@ -272,8 +274,6 @@ const updateAccountDetails = asyncHandler(async (req , res) =>{
 })
 
 const updateAvatar = asyncHandler(async(req , res)=>{
-    console.log("FILES ARE = " , req.files);
-    
     //take the new avatar
     const avatarLocalPath = req.file?.path;
 

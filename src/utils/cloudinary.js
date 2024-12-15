@@ -24,6 +24,26 @@ const uploadOnCloudinary = async (localFilePath) =>{
     }
 }
 
+// const deleteFromCloudinary = async (localFilePath)=>{
+//     const videoId = req.params._id;
+//     const video = await Video.findById(videoId);
+//     if(!video){
+//         throw new ApiError(404 , "Video not found");
+//     }
+//     try{
+//         if (!localFilePath) {
+//             return null;
+//         }
+//         const publicId = video.videoFile.split('/').pop().split('.')[0]; // Extract public ID from URL
+//         await cloudinary.v2.uploader.destroy(publicId, { resource_type: 'video' }, (error, result) => {
+//         if (error) {
+//             throw new ApiError(500, "Failed to delete video from Cloudinary");
+//         }
+//         console.log(result); // Log the result for debugging
+//     });
+//     }
+// }
+
 export {uploadOnCloudinary}
 
 
